@@ -7,13 +7,6 @@
 declare namespace Express {
   export interface Request {
     flash(event: string, message: any): any
-    // user?: {
-    //   _id: string
-    //   admin: boolean
-    //   books: string[]
-    //   email: string
-    //   userName: string
-    // }
   }
 }
 

@@ -4,7 +4,7 @@ import express from 'express'
 
 import apiContentType from './middlewares/apiContentType'
 import apiErrorHandler from './middlewares/apiErrorHandler'
-import authorRouter from './routers/questions.routes'
+import questionRouter from './routers/questions.routes'
 
 dotenv.config({ path: '.env' })
 const app = express()
@@ -18,7 +18,7 @@ app.use(apiContentType)
 app.use(express.json())
 
 // Set up routers
-app.use('/api/v1/authors', authorRouter)
+app.use('/api/v1/questions', questionRouter)
 
 // Custom API error handler
 app.use(apiErrorHandler)
