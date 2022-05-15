@@ -5,7 +5,7 @@ import { createAsyncThunk } from '@reduxjs/toolkit'
 import { create, getAll, getById, remove, update } from '../axios/requests'
 import { Question } from '../types/questions.type'
 
-export const fetchQ = createAsyncThunk('fetchQ/q', async () => {
+export const fetchQ: any = createAsyncThunk('fetchQ/q', async () => {
   const response = await getAll()
   const questions: Question[] = response.data
   return questions
