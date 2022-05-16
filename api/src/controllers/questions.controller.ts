@@ -11,13 +11,13 @@ export const setQuestion = async (
   next: NextFunction
 ) => {
   try {
-    const { name, email } = req.body
-    const question = new Question({
-      name,
-      email,
+    const { question, choices } = req.body
+    const newQuestion = new Question({
+      question,
+      choices,
     })
-    await questionService.create(question)
-    res.json(question)
+    const createdQuestion = await questionService.create(newQuestion)
+    res.json(createdQuestion)
   } catch (error) {
     if (error instanceof Error && error.name == 'ValidationError') {
       next(new BadRequestError('Invalid Request', error))
