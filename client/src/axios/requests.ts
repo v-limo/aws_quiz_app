@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-import { Question } from '../types/questions.type'
+import { CreateQuestion, Question } from '../types/questions.type'
 
 const baseUrl =
   process.env.NODE_ENV === 'production'
@@ -16,7 +16,7 @@ export const getAll = () => api.get('/api/v1/questions')
 
 export const getById = (id: string) => api.get(`/api/v1/questions/${id}`)
 
-export const create = (question: Question) =>
+export const create = (question: CreateQuestion) =>
   api.post('/api/v1/questions', question)
 
 export const update = (question: Partial<Question>) =>

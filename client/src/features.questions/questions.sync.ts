@@ -3,7 +3,7 @@ import axios from 'axios'
 import { createAsyncThunk } from '@reduxjs/toolkit'
 
 import { create, getAll, getById, remove, update } from '../axios/requests'
-import { Question } from '../types/questions.type'
+import { CreateQuestion, Question } from '../types/questions.type'
 
 export const fetchQ: any = createAsyncThunk('fetchQ/q', async () => {
   const response = await getAll()
@@ -20,9 +20,9 @@ export const fetchQById = createAsyncThunk(
   }
 )
 
-export const createQ = createAsyncThunk(
+export const createQ: any = createAsyncThunk(
   'create/q',
-  async (question: Question) => {
+  async (question: CreateQuestion) => {
     const response = await create(question)
     const newQuestion: Question = response.data
     return newQuestion

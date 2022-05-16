@@ -1,10 +1,15 @@
+export interface Choice {
+  choice: string
+  correct?: boolean
+}
+
 export interface Question {
   question: string
-  choices: string[]
-  answers: string[]
-  resource?: string[]
-  category?: string
-  image?: string
-  flag?: boolean
+  choices: Choice[]
   _id?: string
+}
+
+export interface CreateQuestion {
+  question: string
+  choices: Choice[]
 }
