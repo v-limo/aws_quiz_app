@@ -1,11 +1,11 @@
 import express from 'express'
 
 import {
-  deleteQuestion,
+  // deleteQuestion,
   getAllQuestions,
   getQuestion,
   setQuestion,
-  updateQuestion,
+  // updateQuestion,
 } from '../controllers/questions.controller'
 
 const router = express.Router()
@@ -14,7 +14,7 @@ router.get('/', getAllQuestions)
 router.get('/:QuestionId', getQuestion)
 router.post('/', setQuestion)
 
-router.put('/:QuestionId', updateQuestion)
-router.delete('/:QuestionId', deleteQuestion)
+// router.put('/:QuestionId', updateQuestion)
+// router.delete('/:QuestionId', deleteQuestion)
 
 export default router
