@@ -8,11 +8,13 @@ type Choice = {
 export type questionDocument = Document & {
   question: string
   choices: Choice[]
+  source?: string
+  resources?: string[]
 }
 
 const questionSchema = new Schema(
   {
-    question: { type: String, required: true },
+    question: { type: String, required: true, unique: true },
     choices: {
       type: [
         {
@@ -21,6 +23,15 @@ const questionSchema = new Schema(
           _id: false,
         },
       ],
+      required: true,
+    },
+    source: {
+      type: String,
+      required: false,
+    },
+    resources: {
+      type: [String],
+      required: false,
     },
   },
   { timestamps: true }
