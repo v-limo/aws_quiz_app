@@ -13,7 +13,7 @@ const app = express()
 app.set('port', process.env.PORT || 5000)
 
 const corsOptions = {
-  origin: 'http://localhost:3000',
+  origin: ['http://localhost:3000', 'https://aws-exam.netlify.app'],
   credentials: true,
 }
 
