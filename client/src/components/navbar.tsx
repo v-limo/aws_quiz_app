@@ -1,36 +1,56 @@
-import { Typography, Box } from '@mui/material'
-import { useNavigate } from 'react-router-dom'
+import React from 'react'
+import { useNavigate } from 'react-router'
+
+import { Box } from '@mui/material'
+import AppBar from '@mui/material/AppBar'
+import Toolbar from '@mui/material/Toolbar'
 
 const NavBar = () => {
   const navigate = useNavigate()
+
+  const navItem = {
+    mx: {
+      sm: 'auto',
+      md: 3,
+      lg: 3,
+    },
+    px: 1,
+    cursor: 'pointer',
+    fontSize: '1.3rem',
+    borderBottom: '1px  solid transparent',
+    transition: 'all 0.3s ease-in-out',
+    '&:hover': {
+      borderBottom: '1px solid #ffa40b',
+      borderBottomColor: '#ffa40b',
+    },
+  }
+
   return (
-    <Box
-      sx={{
-        width: '100%',
-        backgroundColor: '#ffa500',
-        display: 'flex',
-        alignItems: 'center',
-        maxWidth: '100vw',
-      }}
+    <AppBar
+      sx={{ p: '4px', bgcolor: '#fdece4', color: 'black', width: '100vw' }}
     >
-      <Typography
+      <Toolbar
         sx={{
-          fontFamily: 'Hurricane',
-          fontSize: 38,
-          fontWeight: 700,
-          textAlign: 'center',
-          margin: '0 auto',
-          cursor: 'pointer',
-          mb: '0.5rem',
-          padding: '0.5rem',
+          display: 'flex',
+          justifyContent: 'center',
+          flexWrap: 'nowrap',
+          alignItems: 'center',
+          p: 2,
+          mx: 'auto',
+          width: '100%',
         }}
-        variant='h4'
-        color='primary'
-        onClick={() => navigate('/')}
       >
-        AWS Exam Quizlet
-      </Typography>
-    </Box>
+        <Box sx={navItem} onClick={() => navigate('/')}>
+          Home
+        </Box>
+        <Box sx={navItem} onClick={() => navigate('/add')}>
+          Add Questions
+        </Box>
+        <Box sx={navItem} onClick={() => navigate('/test')}>
+          Test
+        </Box>
+      </Toolbar>
+    </AppBar>
   )
 }
 

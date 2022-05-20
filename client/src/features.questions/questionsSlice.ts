@@ -29,6 +29,8 @@ export const questionsSlice = createSlice({
     // Fetch all questions
     builder.addCase(fetchQ.fulfilled, (state, action) => {
       state.questions = action.payload
+      // randomizeQuestions
+      state.questions.sort(() => Math.random() - 0.5)
     })
 
     // Fetch a question by id

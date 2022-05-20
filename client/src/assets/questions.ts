@@ -11,6 +11,7 @@ export const questionsSet: Question[] = [
       { choice: 'Buckets can contain other buckets' },
       { choice: 'Bucket names must be unique regionally' },
     ],
+    _id: '5e9f9c8f9c8f9c8f9c8f9c8f',
   },
 
   {
@@ -22,6 +23,7 @@ export const questionsSet: Question[] = [
       { choice: 'Amazon Elastic Block Storage (EBS) volume', correct: true },
       { choice: 'Amazon Elastic File Storage (EFS) filesystem' },
     ],
+    _id: '5e9f9c8f9c8f9c8f9c8f9c8f',
   },
   {
     question:
@@ -32,6 +34,7 @@ export const questionsSet: Question[] = [
       { choice: 'Amazon S3 Standard' },
       { choice: 'Amazon Glacier with expedited retrievals' },
     ],
+    _id: '5e9f9c8f9c8f9c8f9c8f9c8f',
   },
   {
     question:
@@ -43,6 +46,7 @@ export const questionsSet: Question[] = [
       { choice: 'Subnets', correct: true },
       { choice: 'Regions' },
     ],
+    _id: '5e9f9c8f9c8f9c8f9c8f9c8f',
   },
   {
     question: 'What is the scope of a VPC within a region?',
@@ -55,6 +59,7 @@ export const questionsSet: Question[] = [
       },
       { choice: 'At least 2 subnets per region' },
     ],
+    _id: '5e9f9c8f9c8f9c8f9c8f9c8f',
   },
   {
     question:
@@ -65,6 +70,7 @@ export const questionsSet: Question[] = [
       { choice: 'They are stateless', correct: true },
       { choice: 'They operate at the instance level' },
     ],
+    _id: '5e9f9c8f9c8f9c8f9c8f9c8f',
   },
 
   {
@@ -75,6 +81,7 @@ export const questionsSet: Question[] = [
       { choice: 'They process rules in order' },
       { choice: 'They support allow and deny rules' },
     ],
+    _id: '5e9f9c8f9c8f9c8f9c8f9c8f',
   },
   {
     question:
@@ -85,5 +92,6 @@ export const questionsSet: Question[] = [
       { choice: 'Amazon VPC', correct: true },
       { choice: 'Amazon Workspaces' },
     ],
+    _id: '5e9f9c8f9c8f9c8f9c8f9c8f',
   },
 ]

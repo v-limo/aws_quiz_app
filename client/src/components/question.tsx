@@ -1,23 +1,15 @@
-import { useDispatch, useSelector } from 'react-redux'
+import { Card, Typography } from '@mui/material'
 
-import { Box, Button, Card, Typography } from '@mui/material'
-
-import { createQ } from '../features.questions/questions.sync'
-import { CreateQuestion, Question as QuestionType } from '../types/questions.type'
+import { Question as QuestionType } from '../types/questions.type'
 
 type Props = {
   question: QuestionType
   index: number
+  showAnswers?: boolean
 }
 
-const Question = ({ question: mainQuestion, index }: Props) => {
-  const dispatch = useDispatch()
-
+const Question = ({ question: mainQuestion, index, showAnswers }: Props) => {
   const { question, choices } = mainQuestion
-
-  let choicesArray = [...choices].sort(
-    () => Math.random() - 0.5
-  ) as CreateQuestion['choices']
 
   return (
     <Card
@@ -32,6 +24,9 @@ const Question = ({ question: mainQuestion, index }: Props) => {
         maxWidth: '100vw',
         height: 'fit-content',
         justifyContent: 'space-evenly',
+        minHeight: '100%',
+        flex: '1',
+        margin: '1rem',
       }}
     >
       <Typography
@@ -43,7 +38,7 @@ const Question = ({ question: mainQuestion, index }: Props) => {
         }}
       >{`${index + 1}. ${question}`}</Typography>
 
-      {choicesArray.map((choice, index) => (
+      {choices.map((choice, index) => (
         <Typography
           key={Math.random() * 100 + index}
           variant='body1'
@@ -53,9 +48,9 @@ const Question = ({ question: mainQuestion, index }: Props) => {
             my: '0.1rem',
             borderRadius: '0.5rem',
             transition: 'all 0.3s ease-in-out',
-            bgcolor: choice?.correct ? '#ffa40b' : '',
+            bgcolor: choice?.correct && showAnswers ? '#ffa40b' : 'transparent',
             '&:hover': {
-              bgcolor: '#ffa40b',
+              backgroundColor: '#ffc86c',
               transition: 'all 0.3s ease-in-out',
             },
           }}

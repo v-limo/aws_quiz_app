@@ -3,6 +3,7 @@ import { Outlet } from 'react-router'
 
 import { Box } from '@mui/material'
 
+import Footer from '../components/footer'
 import NavBar from '../components/navbar'
 
 const Layout = () => {
@@ -10,6 +11,7 @@ const Layout = () => {
     <Box>
       <NavBar />
       <Outlet />
+      <Footer />
     </Box>
   )
 }

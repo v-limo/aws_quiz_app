@@ -1,6 +1,7 @@
+import React, { useState } from 'react'
 import { useSelector } from 'react-redux'
 
-import { Box, Container } from '@mui/material'
+import { Box, Button, Container } from '@mui/material'
 
 import { selectQuestions } from '../features.questions/questionsSlice'
 import background from '../img/background_3.jpg'
@@ -9,6 +10,7 @@ import Question from './question'
 
 const Questions = () => {
   const { isLoading, questions } = useSelector(selectQuestions)
+  const [showAnswers, setShowAnswers] = useState(false)
 
   if (isLoading) {
     return <Loading />
@@ -39,6 +41,22 @@ const Questions = () => {
         }}
       ></Box>
 
+      {questions.length > 0 && (
+        <Button
+          variant='contained'
+          color='primary'
+          sx={{
+            width: 'fit-content',
+            mx: 'auto',
+            my: '1rem',
+            borderRadius: '0.5rem',
+          }}
+          onClick={() => setShowAnswers(!showAnswers)}
+        >
+          {showAnswers ? 'Hide Answers' : 'Show Answers'}
+        </Button>
+      )}
+
       <Box
         sx={{
           width: {
@@ -54,7 +72,8 @@ const Questions = () => {
               <Question
                 question={question}
                 index={index}
-                key={question?._id ?? Math.random() * 100 + index}
+                key={question?._id}
+                showAnswers={showAnswers}
               />
             ))}
           </>
@@ -62,7 +81,7 @@ const Questions = () => {
 
         {questions.length === 0 && (
           <p style={{ display: 'flex', textAlign: 'center' }}>
-            No questions, Reload this page
+            No questions, Reload this page or add a question to get started!
           </p>
         )}
       </Box>
