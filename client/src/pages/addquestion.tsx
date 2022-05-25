@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
-import { Box, Card, Typography } from '@mui/material'
+import { Box, Typography } from '@mui/material'
 import Button from '@mui/material/Button'
 import FormControl from '@mui/material/FormControl'
 import FormLabel from '@mui/material/FormLabel'
@@ -29,13 +29,13 @@ const AddQuestion = () => {
     const newQuestion: CreateQuestion = {
       question: question.trim(),
       choices: choices
-        .map((choice) => {
+        ?.map((choice) => {
           return {
             choice: choice.choice.trim(),
             correct: choice.correct,
           }
         })
-        .filter((choice) => choice.choice.trim() !== ''),
+        ?.filter((choice) => choice.choice.trim() !== ''),
     }
 
     if (source.trim() !== '') {
@@ -58,50 +58,44 @@ const AddQuestion = () => {
   }, [message])
 
   const textFieldStyle = {
-    border: '1px solid transparent',
-    borderColor: 'primary.main',
-    mb: '10px',
+    my: '1rem',
     borderRadius: '0.5rem',
+    width: '10',
+    fontSize: '1rem',
+    fontWeight: 'bold',
+    // padding: '0.5rem',
   }
 
   return (
     <Box
       sx={{
-        maxWidth: '100vw',
-        mx: 'auto',
-        px: '0.5rem',
-        height: 'fit-content',
-        minHeight: '100vh',
         display: 'flex',
-        pt: '80px',
-        flexDirection: {
-          xs: 'column',
-          md: 'row',
-        },
-        justifyContent: 'space-around',
+        flexDirection: 'column',
+        maxWidth: '100vw',
+        pt: '90px',
+        justifyContent: 'space-evenly',
       }}
     >
-      <Card
+      <Box
         sx={{
           display: 'flex',
           flexDirection: 'column',
-          flex: '1',
-          margin: '1rem',
-          padding: '1rem',
-          backgroundColor: '#fdece4',
+          width: '100%',
+          p: '1rem',
+          maxWidth: '730px',
+          mx: 'auto',
+          padding: '0.5rem',
           borderRadius: '0.5rem',
           height: 'fit-content',
           justifyContent: 'space-around',
-          spacing: '1rem',
           minHeight: '100%',
+          flex: '1',
         }}
       >
-        <Typography variant='h4' sx={{ alignSelf: 'center', padding: '1rem' }}>
-          Add Question
-        </Typography>
+        <Typography variant='h4'>1/2 Add Question</Typography>
         <FormControl
           sx={{
-            width: '80%',
+            width: '100%',
             mx: 'auto',
             display: 'flex',
             flexDirection: 'column',
@@ -117,7 +111,7 @@ const AddQuestion = () => {
               fontWeight: 'bold',
             }}
           >
-            1. Question *
+            1.1 Question *
           </FormLabel>
           <TextField
             fullWidth
@@ -139,7 +133,7 @@ const AddQuestion = () => {
               fontWeight: 'bold',
             }}
           >
-            2. Unique Choices *
+            1.2 Unique Choices *
           </FormLabel>
           <TextField
             placeholder='Enter Choice 1'
@@ -193,7 +187,7 @@ const AddQuestion = () => {
               fontWeight: 'bold',
             }}
           >
-            3. Optionals
+            1.3. Optionals
           </FormLabel>
           <FormLabel
             sx={{
@@ -204,7 +198,7 @@ const AddQuestion = () => {
               ml: '1rem',
             }}
           >
-            3.1 Source
+            1.3.1 Source
           </FormLabel>
 
           <TextField
@@ -216,40 +210,37 @@ const AddQuestion = () => {
             onChange={(e) => setSource(e.target.value)}
           />
         </FormControl>
-      </Card>
+      </Box>
 
-      <Card
+      <Box
         sx={{
           visibility: question.length > 5 ? 'visible' : 'hidden',
           display: 'flex',
           flexDirection: 'column',
-          padding: '1rem',
-          backgroundColor: '#f5f5f5',
           borderRadius: '0.5rem',
-          maxWidth: '100vw',
-          height: 'fit-content',
           justifyContent: 'space-evenly',
-          minHeight: '100%',
-          flex: '1',
-          margin: '1rem',
+          width: '100%',
+          maxWidth: '730px',
+          mx: 'auto',
+          p: '1rem',
         }}
       >
-        <Typography variant='h4' sx={{ alignSelf: 'center', padding: '1rem' }}>
-          Preview and choose answers
+        <Typography variant='h5' sx={{ alignSelf: 'center', padding: '1rem' }}>
+          2/2 Preview and choose answers
         </Typography>
 
         <Typography
           variant='body1'
           sx={{
-            fontSize: '1.2rem',
+            fontSize: '1.125rem',
             fontWeight: 'bold',
-            padding: '0.5rem',
+            width: '100%',
           }}
         >{` ${question}`}</Typography>
 
         {choices
-          .filter((choice: Choice) => choice.choice.length > 0)
-          .map((choice, index) => (
+          ?.filter((choice: Choice) => choice.choice.length > 0)
+          ?.map((choice, index) => (
             <Typography
               key={choice.choice + index.toString()}
               onClick={() => {
@@ -261,18 +252,25 @@ const AddQuestion = () => {
                   setChoice3({ ...choice3, correct: !choice3?.correct })
                 if (index === 3)
                   setChoice4({ ...choice4, correct: !choice4?.correct })
+
+                if (index === 4)
+                  setChoice5({ ...choice5, correct: !choice5?.correct })
                 else return
               }}
               variant='body1'
               sx={{
                 cursor: 'pointer',
                 padding: '1rem',
-                my: '0.1rem',
+                width: '100%',
+
+                mx: 'auto',
+                my: '0.3rem',
+                pl: '2rem',
                 borderRadius: '0.5rem',
                 transition: 'all 0.3s ease-in-out',
-                bgcolor: choice?.correct ? '#ffa40b' : 'transparent',
+                bgcolor: choice?.correct ? '#ffa40b' : '#f0f0f0',
                 '&:hover': {
-                  bgcolor: '#ffc86c',
+                  backgroundColor: '#a8a8a8',
                   transition: 'all 0.3s ease-in-out',
                 },
               }}
@@ -284,9 +282,9 @@ const AddQuestion = () => {
 
         {question &&
           choices.length > 0 &&
-          choices.filter((choice: Choice) => choice.choice.length > 0).length >
-            0 &&
-          choices.filter((choice: Choice) => choice.correct).length > 0 && (
+          choices?.filter((choice: Choice) => choice.choice !== '').length >
+            4 &&
+          choices?.filter((choice: Choice) => choice.correct).length > 0 && (
             <Button
               variant='contained'
               color='primary'
@@ -299,13 +297,18 @@ const AddQuestion = () => {
                 padding: '0.5rem',
                 height: 'fit-content',
                 borderRadius: '0.5rem',
+                width: {
+                  sm: '100%',
+                  md: '50%',
+                  lg: '30%',
+                },
               }}
               onClick={handleAddQuestion}
             >
               Add Question
             </Button>
           )}
-      </Card>
+      </Box>
     </Box>
   )
 }

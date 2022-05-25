@@ -27,6 +27,7 @@ const NavBar = () => {
 
   return (
     <AppBar
+      elevation={0}
       sx={{ p: '4px', bgcolor: '#fdece4', color: 'black', width: '100vw' }}
     >
       <Toolbar
@@ -44,7 +45,7 @@ const NavBar = () => {
           Home
         </Box>
         <Box sx={navItem} onClick={() => navigate('/add')}>
-          Add Questions
+          Add Question
         </Box>
         <Box sx={navItem} onClick={() => navigate('/test')}>
           Test

@@ -29,8 +29,6 @@ export const questionsSlice = createSlice({
     // Fetch all questions
     builder.addCase(fetchQ.fulfilled, (state, action) => {
       state.questions = action.payload
-      // randomizeQuestions
-      state.questions.sort(() => Math.random() - 0.5)
     })
 
     // Fetch a question by id
@@ -52,7 +50,7 @@ export const questionsSlice = createSlice({
 
     // Remove a question
     builder.addCase(removeQ.fulfilled, (state, action) => {
-      state.questions = state.questions.filter(
+      state.questions = state.questions?.filter(
         (question) => question._id !== action.payload._id
       )
     })

@@ -9,8 +9,9 @@ const Home = () => (
     sx={{
       maxWidth: '100vw',
       mx: 'auto',
-      pt:"80px",
+      pt: '80px',
       height: 'fit-content',
+      fontFamily: 'Helvetica Neue Arial sans-serif',
     }}
   >
     <Questions />

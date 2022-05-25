@@ -1,4 +1,4 @@
-import { Card, Typography } from '@mui/material'
+import { Box, Typography } from '@mui/material'
 
 import { Question as QuestionType } from '../types/questions.type'
 
@@ -12,54 +12,55 @@ const Question = ({ question: mainQuestion, index, showAnswers }: Props) => {
   const { question, choices } = mainQuestion
 
   return (
-    <Card
+    <Box
       sx={{
         display: 'flex',
         flexDirection: 'column',
+        width: '100%',
+        maxWidth: '730px',
         my: '1.3rem',
-        mx: 'auto',
-        padding: '1rem',
-        backgroundColor: '#f5f5f5',
+        // mx: 'auto',
+        padding: '0.5rem',
         borderRadius: '0.5rem',
-        maxWidth: '100vw',
         height: 'fit-content',
         justifyContent: 'space-evenly',
         minHeight: '100%',
         flex: '1',
-        margin: '1rem',
       }}
     >
       <Typography
-        variant='body1'
+        component='p'
         sx={{
-          fontSize: '1.2rem',
-          fontWeight: 'bold',
-          padding: '0.5rem',
+          fontSize: '1.1rem',
+          fontWeight: '700',
+          py: '1rem',
         }}
       >{`${index + 1}. ${question}`}</Typography>
 
-      {choices.map((choice, index) => (
-        <Typography
-          key={Math.random() * 100 + index}
-          variant='body1'
-          sx={{
-            cursor: 'pointer',
-            padding: '1rem',
-            my: '0.1rem',
-            borderRadius: '0.5rem',
-            transition: 'all 0.3s ease-in-out',
-            bgcolor: choice?.correct && showAnswers ? '#ffa40b' : 'transparent',
-            '&:hover': {
-              backgroundColor: '#ffc86c',
+      {choices.length > 0 &&
+        choices?.map((choice, index) => (
+          <Typography
+            key={Math.random() * 100 + index}
+            variant='body1'
+            sx={{
+              cursor: 'pointer',
+              padding: '1rem',
+              my: '0.3rem',
+              pl: '2rem',
+              borderRadius: '0.5rem',
               transition: 'all 0.3s ease-in-out',
-            },
-          }}
-        >
-          {`${['A)', 'B)', 'C)', 'D)', 'E)', 'F)', 'G)', 'H)'][index]}.
+              bgcolor: choice?.correct && showAnswers ? '#ffa40b' : '#f0f0f0',
+              '&:hover': {
+                backgroundColor: '#a8a8a8',
+                transition: 'all 0.3s ease-in-out',
+              },
+            }}
+          >
+            {`${['A)', 'B)', 'C)', 'D)', 'E)', 'F)', 'G)', 'H)'][index]}.
            ${choice.choice}`}
-        </Typography>
-      ))}
-    </Card>
+          </Typography>
+        ))}
+    </Box>
   )
 }
 export default Question

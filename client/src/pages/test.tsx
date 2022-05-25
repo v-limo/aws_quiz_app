@@ -56,7 +56,7 @@ const Test = () => {
       >
         {questions.length > 0 && (
           <Box>
-            {questions.map((question, index) => (
+            {questions?.map((question, index) => (
               <Question question={question} index={index} key={question?._id} />
             ))}
           </Box>

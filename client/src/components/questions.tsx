@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { useSelector } from 'react-redux'
 
-import { Box, Button, Container } from '@mui/material'
+import { Box, Button, Container, Typography } from '@mui/material'
 
 import { selectQuestions } from '../features.questions/questionsSlice'
 import background from '../img/background_3.jpg'
@@ -31,57 +31,66 @@ const Questions = () => {
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'center',
-          height: '30vh',
+          height: '350px',
           width: '100%',
           backgroundImage: `url(${background})`,
           backgroundSize: 'cover',
           backgroundPosition: 'center',
           backgroundRepeat: 'no-repeat',
-          maxWidth: '100vw',
+          maxWidth: '730px',
+          margin: '2rem',
+          borderRadius: '0.5rem',
+          padding: '1rem',
+          justifyContent: 'space-evenly',
         }}
       ></Box>
 
       {questions.length > 0 && (
         <Button
-          variant='contained'
+          variant='outlined'
           color='primary'
           sx={{
+            color: '#000',
+            backgroundColor: !showAnswers ? '#ffa40b' : '#fff',
             width: 'fit-content',
-            mx: 'auto',
             my: '1rem',
+            textTransform: 'none',
             borderRadius: '0.5rem',
+            fontSize: '1rem',
+            fontWeight: 'bold',
+            padding: '0.5rem',
+            margin: '0.5rem',
           }}
-          onClick={() => setShowAnswers(!showAnswers)}
+          onClick={() => setShowAnswers((prev) => !prev)}
         >
           {showAnswers ? 'Hide Answers' : 'Show Answers'}
         </Button>
       )}
-
-      <Box
+      <Typography
         sx={{
-          width: {
-            xs: '100%',
-            md: '96%',
-            lg: '86%',
-          },
+          fontSize: '1.2rem',
+          fontWeight: 'bold',
+          fontFamily: 'Montserrat',
         }}
       >
-        {questions.length > 0 && (
-          <>
-            {questions.map((question, index) => (
-              <Question
-                question={question}
-                index={index}
-                key={question?._id}
-                showAnswers={showAnswers}
-              />
-            ))}
-          </>
-        )}
+        {questions.length} Questions
+      </Typography>
 
-        {questions.length === 0 && (
+      <Box>
+        {questions && questions.length > 0 ? (
+          questions.map((question, index) => (
+            <Question
+              question={question}
+              index={index}
+              key={question?._id}
+              showAnswers={showAnswers}
+            />
+          ))
+        ) : (
           <p style={{ display: 'flex', textAlign: 'center' }}>
-            No questions, Reload this page or add a question to get started!
+            No questions, Reload this page or
+            <a href='/add'>add a question</a>
+            to get started!
           </p>
         )}
       </Box>

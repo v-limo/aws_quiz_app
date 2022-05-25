@@ -4,7 +4,7 @@ import { CreateQuestion, Question } from '../types/questions.type'
 
 const baseUrl =
   process.env.NODE_ENV === 'production'
-    ? process.env.REACT_APP_BASE_URL
+    ? 'https://aws-exam.herokuapp.com'
     : 'http://localhost:5000'
 
 const api = axios.create({
