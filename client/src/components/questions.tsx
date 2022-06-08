@@ -82,7 +82,7 @@ const Questions = () => {
             <Question
               question={question}
               index={index}
-              key={question?._id}
+              key={question?._id + index}
               showAnswers={showAnswers}
             />
           ))

@@ -1,14 +1,36 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
 
-import { Box, Container, Typography } from '@mui/material'
+import { Box, Button, Typography, Container } from '@mui/material'
 
 import Loading from '../components/loading'
-// import Question from '../components/question'
+import TestQuestion from '../components/testQuestion'
 import { selectQuestions } from '../features.questions/questionsSlice'
+import { Question } from '../types/questions.type'
 
 const Test = () => {
-  const { isLoading } = useSelector(selectQuestions)
+  let { isLoading, questions } = useSelector(selectQuestions)
+
+  const withAnswers = (question: Question) => {
+    const { chosenAnswers } = question
+    if (!chosenAnswers) {
+      return false
+    }
+    if (
+      question.choices.filter((choices) => choices.correct).length ===
+      chosenAnswers.length
+    ) {
+      return true
+    } else {
+      return false
+    }
+  }
+
+  const handleSubmit = () => {
+    console.log('submit')
+  }
+
+  questions = questions.slice(0, 10)
 
   if (isLoading) {
     return <Loading />
@@ -17,51 +39,83 @@ const Test = () => {
   return (
     <Container
       sx={{
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        my: '80px',
         maxWidth: '100vw',
         mx: 'auto',
         height: 'fit-content',
-        minHeight: '100vh',
-        display: 'flex',
-        pt: '80px',
-        justifyContent: 'center',
-        alignItems: 'center',
       }}
     >
       <Box
         sx={{
+          position: 'fixed',
+          top: '80px',
+          width: 'fit-content',
+          mx: 'auto',
           display: 'flex',
-          my: '1.3rem',
-          maxWidth: '40vw',
-          flex: '1',
-          padding: '1rem',
-          backgroundColor: '#ffa40b',
-          borderRadius: '0.5rem',
-          height: 'fit-content',
+          alignItems: 'center',
           justifyContent: 'space-evenly',
-          minHeight: '100%',
+          flexWrap: '100%',
         }}
       >
-        <Typography variant='h5'>Coming Soon!</Typography>
+        {questions.map((question, index) => (
+          <Typography
+            sx={{
+              backgroundColor: withAnswers(question) ? '#ffa40b' : 'green',
+              flexWrap: 'wrap',
+              height: '30px',
+              width: '30px',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              textAlign: 'center',
+              m: '1px',
+              cursor: 'pointer',
+              textDecoration: 'none',
+              textTransform: 'none',
+            }}
+            variant='body1'
+            key={question._id + index}
+          >
+            <a href={`#question-${index + 1}`}>{index + 1}</a>
+          </Typography>
+        ))}
       </Box>
 
-      {/* <Box
+      {questions.length > 0 && (
+        <Box>
+          {questions?.map((question, index) => (
+            <TestQuestion
+              question={question}
+              index={index}
+              key={question?._id + index}
+            />
+          ))}
+        </Box>
+      )}
+      <Button
+        variant='contained'
         sx={{
-          display: 'flex',
-          flexDirection: 'column',
-          my: '1.3rem',
-          maxWidth: '40vw',
-          zIndex: '1',
-          opacity: '0.1',
+          backgroundColor: '#ffa40b',
+          color: '#fff',
+          fontSize: '1.2rem',
+          textTransform: 'none',
+          fontWeight: '700',
+          m: '1rem',
+          px: '1.3rem',
+          borderRadius: '0.5rem',
+          transition: 'all 0.3s ease-in-out',
+          '&:hover': {
+            backgroundColor: '#fff',
+            color: '#ffa40b',
+          },
         }}
+        onClick={handleSubmit}
       >
-        {questions.length > 0 && (
-          <Box>
-            {questions?.map((question, index) => (
-              <Question question={question} index={index} key={question?._id} />
-            ))}
-          </Box>
-        )}
-      </Box> */}
+        Submit
+      </Button>
     </Container>
   )
 }

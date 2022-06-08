@@ -11,6 +11,7 @@ export const questionsSet: Question[] = [
       { choice: 'Buckets can contain other buckets' },
       { choice: 'Bucket names must be unique regionally' },
     ],
+    chosenAnswers: [],
     _id: '5e9f9c8f9c8f9c8f9c8f9c8f',
   },
 
@@ -23,6 +24,7 @@ export const questionsSet: Question[] = [
       { choice: 'Amazon Elastic Block Storage (EBS) volume', correct: true },
       { choice: 'Amazon Elastic File Storage (EFS) filesystem' },
     ],
+    chosenAnswers: [],
     _id: '5e9f9c8f9c8f9c8f9c8f9c8f',
   },
   {
@@ -34,6 +36,7 @@ export const questionsSet: Question[] = [
       { choice: 'Amazon S3 Standard' },
       { choice: 'Amazon Glacier with expedited retrievals' },
     ],
+    chosenAnswers: [],
     _id: '5e9f9c8f9c8f9c8f9c8f9c8f',
   },
   {
@@ -46,6 +49,7 @@ export const questionsSet: Question[] = [
       { choice: 'Subnets', correct: true },
       { choice: 'Regions' },
     ],
+    chosenAnswers: [],
     _id: '5e9f9c8f9c8f9c8f9c8f9c8f',
   },
   {
@@ -59,6 +63,7 @@ export const questionsSet: Question[] = [
       },
       { choice: 'At least 2 subnets per region' },
     ],
+    chosenAnswers: [],
     _id: '5e9f9c8f9c8f9c8f9c8f9c8f',
   },
   {
@@ -70,6 +75,7 @@ export const questionsSet: Question[] = [
       { choice: 'They are stateless', correct: true },
       { choice: 'They operate at the instance level' },
     ],
+    chosenAnswers: [],
     _id: '5e9f9c8f9c8f9c8f9c8f9c8f',
   },
 
@@ -81,6 +87,7 @@ export const questionsSet: Question[] = [
       { choice: 'They process rules in order' },
       { choice: 'They support allow and deny rules' },
     ],
+    chosenAnswers: [],
     _id: '5e9f9c8f9c8f9c8f9c8f9c8f',
   },
   {
@@ -93,5 +100,6 @@ export const questionsSet: Question[] = [
       { choice: 'Amazon Workspaces' },
     ],
     _id: '5e9f9c8f9c8f9c8f9c8f9c8f',
+    chosenAnswers: [],
   },
 ]

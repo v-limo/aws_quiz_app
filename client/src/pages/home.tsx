@@ -11,6 +11,7 @@ const Home = () => (
       mx: 'auto',
       pt: '80px',
       height: 'fit-content',
+      minHeight: '100vh',
       fontFamily: 'Helvetica Neue Arial sans-serif',
     }}
   >

@@ -1,15 +1,30 @@
 import { Box, Typography } from '@mui/material'
+import { useDispatch } from 'react-redux'
+import { setChosenAnswer } from '../features.questions/questionsSlice'
 
-import { Question as QuestionType } from '../types/questions.type'
+import {
+  Question as QuestionType,
+  SetChosenAnswer,
+} from '../types/questions.type'
 
 type Props = {
   question: QuestionType
   index: number
-  showAnswers?: boolean
 }
 
-const Question = ({ question: mainQuestion, index, showAnswers }: Props) => {
-  const { question, choices } = mainQuestion
+const TestQuestion = ({ question: mainQuestion, index }: Props) => {
+  const { question, choices, _id: questionId, chosenAnswers } = mainQuestion
+  const dispatch = useDispatch()
+
+  const setChosen = (choice: string) => {
+    const chosen: SetChosenAnswer = {
+      questionId,
+      choice,
+    }
+    dispatch(setChosenAnswer(chosen))
+  }
+
+  const chosen = (choice: string) => chosenAnswers?.includes(choice)
 
   return (
     <Box
@@ -19,9 +34,8 @@ const Question = ({ question: mainQuestion, index, showAnswers }: Props) => {
         width: '100%',
         maxWidth: '730px',
         my: '1.3rem',
-        // mx: 'auto',
+        mx: 'auto',
         padding: '0.5rem',
-        borderRadius: '0.5rem',
         height: 'fit-content',
         justifyContent: 'space-evenly',
         minHeight: '100%',
@@ -31,7 +45,6 @@ const Question = ({ question: mainQuestion, index, showAnswers }: Props) => {
       <Box
         sx={{
           display: 'flex',
-          flexDirection: 'row',
           justifyContent: 'flex-start',
           py: '1rem',
         }}
@@ -41,14 +54,16 @@ const Question = ({ question: mainQuestion, index, showAnswers }: Props) => {
           sx={{
             fontSize: '1.1rem',
             fontWeight: '700',
-            mr: '1rem',
+            mx: '0.5rem',
           }}
-        >{`${index + 1}.`}</Typography>
+          id={`question-${index + 1}`}
+        >{`${index + 1}.  `}</Typography>
         <Typography
           component='p'
           sx={{
             fontSize: '1.1rem',
             fontWeight: '700',
+            flexGrow: '1',
           }}
         >
           {question}
@@ -58,19 +73,17 @@ const Question = ({ question: mainQuestion, index, showAnswers }: Props) => {
       {choices.length > 0 &&
         choices?.map((choice, index) => (
           <Typography
+            onClick={() => setChosen(choice.choice)}
             key={choice.choice + index}
             variant='body1'
             sx={{
               cursor: 'pointer',
               padding: '1rem',
               my: '0.3rem',
-              pl: '2rem',
+              pl: '1rem',
               borderRadius: '0.5rem',
               transition: 'all 0.3s ease-in-out',
-              bgcolor: choice?.correct && showAnswers ? '#ffa40b' : '#cccc',
-              '&:hover': {
-                transition: 'all 0.3s ease-in-out',
-              },
+              backgroundColor: chosen(choice.choice) ? '#ffa40b' : '#f0f0f0',
             }}
           >
             {`${['A)', 'B)', 'C)', 'D)', 'E)', 'F)', 'G)', 'H)'][index]}.
@@ -80,4 +93,4 @@ const Question = ({ question: mainQuestion, index, showAnswers }: Props) => {
     </Box>
   )
 }
-export default Question
+export default TestQuestion

@@ -8,10 +8,16 @@ export interface Question {
   choices: Choice[]
   _id: string
   source?: string
+  chosenAnswers: Choice['choice'][]
 }
 
 export interface CreateQuestion {
   question: string
   choices: Choice[]
   source?: string
+}
+
+export interface SetChosenAnswer {
+  questionId: Question['_id']
+  choice: Choice['choice']
 }

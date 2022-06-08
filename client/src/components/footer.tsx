@@ -13,22 +13,24 @@ const Footer = () => {
         flexDirection: 'column',
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: '#fdece4',
       }}
     >
       <Divider
         sx={{
-          width: '100%',
+          width: '50%',
+          mx: 'auto',
           height: '1px',
           backgroundColor: '#ffb400',
           margin: '0px',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          mb: '0.5rem',
         }}
       />
       <Typography variant='body1' gutterBottom>
-        Vincent Limo &copy;2019 - {new Date().getFullYear()}
-      </Typography>
-
-      <Typography variant='body1'>
+        Vincent Limo &copy;2019 - {new Date().getFullYear()} All rights
+        reserved.{' '}
         <a href='https://github.com/v-limo?tab=repositories'>GitHub</a>
       </Typography>
     </Box>

@@ -16,19 +16,20 @@ const NavBar = () => {
     },
     px: 1,
     cursor: 'pointer',
-    fontSize: '1.3rem',
+    fontSize: '1rem',
     borderBottom: '1px  solid transparent',
-    transition: 'all 0.3s ease-in-out',
+    transition: 'all 0.2s ease-in-out',
     '&:hover': {
       borderBottom: '1px solid #ffa40b',
       borderBottomColor: '#ffa40b',
+      color: '#ffa40b',
     },
   }
 
   return (
     <AppBar
       elevation={0}
-      sx={{ p: '4px', bgcolor: '#fdece4', color: 'black', width: '100vw' }}
+      sx={{ p: '2px', bgcolor: '#fdece4', color: 'black', width: '100vw' }}
     >
       <Toolbar
         sx={{
@@ -44,11 +45,12 @@ const NavBar = () => {
         <Box sx={navItem} onClick={() => navigate('/')}>
           Home
         </Box>
-        <Box sx={navItem} onClick={() => navigate('/add')}>
-          Add Question
-        </Box>
+
         <Box sx={navItem} onClick={() => navigate('/test')}>
-          Test
+          Practice Test
+        </Box>
+        <Box sx={navItem} onClick={() => navigate('/add')}>
+          Add questions
         </Box>
       </Toolbar>
     </AppBar>

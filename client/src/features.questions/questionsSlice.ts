@@ -1,7 +1,7 @@
 import { createSlice, isAnyOf } from '@reduxjs/toolkit'
 
 import { RootState } from '../app/store'
-import { Question } from '../types/questions.type'
+import { Question, SetChosenAnswer } from '../types/questions.type'
 import { createQ, fetchQ, fetchQById, removeQ, updateQ } from './questions.sync'
 
 type questionsState = {
@@ -22,13 +22,58 @@ export const questionsSlice = createSlice({
   name: 'questions',
   initialState,
   reducers: {
-    nothing: (state, action) => state,
+    setChosenAnswer: (state, action: { payload: SetChosenAnswer }) => {
+      const { questionId, choice } = action.payload
+
+      const question = state.questions.find((q) => q._id === questionId)
+
+      if (!question) {
+        return
+      }
+
+      let answerNo = question?.choices.filter((c) => c.correct).length
+      let correctNo = question?.choices.filter((c) => c.correct).length
+
+      // only one answer can be correct
+      if (correctNo === 1) {
+        state.questions = state.questions.map((question) => {
+          if (question._id === questionId) {
+            //remove if already exists
+            question.chosenAnswers.includes(choice)
+              ? (question.chosenAnswers = [])
+              : (question.chosenAnswers = [choice])
+          }
+          return question
+        })
+      } else {
+        // multiple answers can be correct
+        state.questions = state.questions.map((question) => {
+          if (question._id === questionId) {
+            // if the answer is already chosen, remove it
+            question.chosenAnswers.includes(choice)
+              ? question.chosenAnswers.splice(
+                  question.chosenAnswers.indexOf(choice),
+                  1
+                )
+              : // but not more than the number of correct answers
+              answerNo && question.chosenAnswers.length === answerNo
+              ? console.log('not more than the number of correct answers')
+              : // add the answer
+                question.chosenAnswers.push(choice)
+          }
+          return question
+        })
+      }
+    },
   },
 
   extraReducers: (builder) => {
     // Fetch all questions
     builder.addCase(fetchQ.fulfilled, (state, action) => {
       state.questions = action.payload
+      state.questions.forEach((question) => {
+        question.chosenAnswers = []
+      })
     })
 
     // Fetch a question by id
@@ -101,7 +146,7 @@ export const questionsSlice = createSlice({
   },
 })
 
-export const { nothing } = questionsSlice.actions
+export const { setChosenAnswer } = questionsSlice.actions
 export const selectQuestions = (state: RootState) => state.questions
 export default questionsSlice.reducer
 
