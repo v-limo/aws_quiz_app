@@ -9,6 +9,7 @@ type questionsState = {
   isLoading: boolean
   error: boolean
   message: string
+  testStages: 'start' | 'test' | 'end' | 'idle'
 }
 
 const initialState = {
@@ -16,6 +17,7 @@ const initialState = {
   isLoading: false,
   error: false,
   message: '',
+  testStages: 'idle',
 } as questionsState
 
 export const questionsSlice = createSlice({
@@ -64,6 +66,13 @@ export const questionsSlice = createSlice({
           return question
         })
       }
+    },
+
+    submitTest: (state) => {
+      state.questions = state.questions.map((question) => {
+        question.chosenAnswers = []
+        return question
+      })
     },
   },
 

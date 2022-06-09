@@ -10,7 +10,8 @@ import NoMatch from './pages/404'
 import AddQuestion from './pages/addquestion'
 import Home from './pages/home'
 import Layout from './pages/layout'
-import Test from './pages/test'
+import Test from './pages/testPage'
+import TestResults from './pages/testResults'
 
 const App = () => {
   let { questions } = useSelector(selectQuestions)
@@ -29,8 +30,13 @@ const App = () => {
         <Routes>
           <Route path='/' element={<Layout />}>
             <Route index element={<Home />} />
-            <Route path='add' element={<AddQuestion />} />
-            <Route path='test' element={<Test />} />
+            <Route path='questions/add' element={<AddQuestion />} />
+            <Route path='questions/test' element={<Test />} />
+            <Route path='questions/test/:slag' element={<Test />} />
+            <Route
+              path='questions/test/results:slag'
+              element={<TestResults />}
+            />
             <Route path='*' element={<NoMatch />} />
           </Route>
         </Routes>

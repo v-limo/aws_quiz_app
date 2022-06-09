@@ -57,7 +57,7 @@ const TestQuestion = ({ question: mainQuestion, index }: Props) => {
             mx: '0.5rem',
           }}
           id={`question-${index + 1}`}
-        >{`${index + 1}.  `}</Typography>
+        >{`${index}.  `}</Typography>
         <Typography
           component='p'
           sx={{

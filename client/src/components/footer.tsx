@@ -31,7 +31,16 @@ const Footer = () => {
       <Typography variant='body1' gutterBottom>
         Vincent Limo &copy;2019 - {new Date().getFullYear()} All rights
         reserved.{' '}
-        <a href='https://github.com/v-limo?tab=repositories'>GitHub</a>
+        <a
+          style={{
+            color: '#000',
+            textDecoration: 'none',
+            textTransform: 'none',
+          }}
+          href='https://github.com/v-limo?tab=repositories'
+        >
+          GitHub
+        </a>
       </Typography>
     </Box>
   )

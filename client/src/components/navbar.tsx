@@ -46,10 +46,10 @@ const NavBar = () => {
           Home
         </Box>
 
-        <Box sx={navItem} onClick={() => navigate('/test')}>
-          Practice Test
+        <Box sx={navItem} onClick={() => navigate('questions/test')}>
+          Practice Questions
         </Box>
-        <Box sx={navItem} onClick={() => navigate('/add')}>
+        <Box sx={navItem} onClick={() => navigate('questions/add')}>
           Add questions
         </Box>
       </Toolbar>
