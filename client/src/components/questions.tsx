@@ -9,8 +9,12 @@ import Loading from './loading'
 import Question from './question'
 
 const Questions = () => {
-  const { isLoading, questions } = useSelector(selectQuestions)
+  const { isLoading, questions: data } = useSelector(selectQuestions)
   const [showAnswers, setShowAnswers] = useState(false)
+
+  let questions = data
+    .filter((question) => question.question.length < 100)
+    .slice(0, 5)
 
   if (isLoading) {
     return <Loading />
@@ -45,6 +49,18 @@ const Questions = () => {
         }}
       ></Box>
 
+      <Typography
+        sx={{
+          fontSize: '1.5rem',
+          fontWeight: 'bold',
+          fontFamily: 'Montserrat',
+          textAlign: 'center',
+          margin: '1rem',
+        }}
+      >
+        Sample Questions ({questions.length})
+      </Typography>
+
       {questions.length > 0 && (
         <Button
           variant='outlined'
@@ -53,28 +69,17 @@ const Questions = () => {
             color: '#000',
             backgroundColor: !showAnswers ? '#ffa40b' : '#fff',
             width: 'fit-content',
-            my: '1rem',
             textTransform: 'none',
             borderRadius: '0.5rem',
             fontSize: '1rem',
             fontWeight: 'bold',
             padding: '0.5rem',
-            margin: '0.5rem',
           }}
           onClick={() => setShowAnswers((prev) => !prev)}
         >
           {showAnswers ? 'Hide Answers' : 'Show Answers'}
         </Button>
       )}
-      <Typography
-        sx={{
-          fontSize: '1.2rem',
-          fontWeight: 'bold',
-          fontFamily: 'Montserrat',
-        }}
-      >
-        {questions.length} Questions
-      </Typography>
 
       <Box>
         {questions && questions.length > 0 ? (
