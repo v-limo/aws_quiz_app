@@ -1,70 +1,29 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
 
-import { Box, Button, Typography, Container } from '@mui/material'
-
-import Loading from '../components/loading'
-
-import { selectQuestions } from '../features.questions/questionsSlice'
-import { Question } from '../types/questions.type'
-import { useNavigate, useParams } from 'react-router-dom'
+import { Box, Button, Container, Typography } from '@mui/material'
 
 import Instructions from '../components/instructions'
+import Loading from '../components/loading'
+import { reSet, selectQuestions, setTestStage } from '../features.questions/questionsSlice'
+import { Teststage } from '../types/questions.type'
+import partition from '../utils/partition'
 
-const Test = () => {
+const TestPage = () => {
   let { isLoading, questions } = useSelector(selectQuestions)
 
   const dispatch = useDispatch()
   const navigate = useNavigate()
-  const { testId } = useParams()
+
   const [slag, setSlag] = useState('')
 
-  const withAnswers = (question: Question) => {
-    const { chosenAnswers } = question
-    if (!chosenAnswers) {
-      return false
-    }
-    if (
-      question.choices.filter((choices) => choices.correct).length ===
-      chosenAnswers.length
-    ) {
-      return true
-    } else {
-      return false
-    }
-  }
-
-  // partition questions
-  const partition = (arr: Question[], size: number) => {
-    const result = []
-    let i = 0
-    while (i < arr.length) {
-      result.push(arr.slice(i, (i += size)))
-    }
-    return result
-  }
-
-  // divide questions into 5 questions per page
-  const questionsPerPage = 5
-  const totalPages = Math.ceil(questions.length / questionsPerPage)
-  const [currentPage, setCurrentPage] = React.useState(1)
-  const startIndex = (currentPage - 1) * questionsPerPage
-  const endIndex = startIndex + questionsPerPage
-  const currentQuestions = questions.slice(startIndex, endIndex)
-
-  // navigate to results page
-  const handleSubmit = () => {
-    if (currentQuestions.every(withAnswers)) {
-      navigate(`/test/results/${slag}`)
-    } else {
-      alert('Please answer all questions')
-      navigate(`/test/results/${slag}`)
-    }
-  }
   const handleStart = () => {
     if (slag) {
-      alert('Practice Test ' + slag + ' has started')
-      // navigate(`/test/${testId}/results`)
+      let started: Teststage = 'started'
+      dispatch(setTestStage(started))
+      dispatch(reSet())
+      navigate(`/questions/testi/${slag}`)
     } else {
       alert('Please enter a select Practice Test before starting')
     }
@@ -110,7 +69,7 @@ const Test = () => {
           height: 'fit-content',
         }}
       >
-        {partition(questions, 10).map((_, index) => (
+        {partition(questions, 30).map((_, index) => (
           <Typography
             onClick={() => {
               slag === (index + 1).toString()
@@ -160,4 +119,4 @@ const Test = () => {
   )
 }
 
-export default Test
+export default TestPage

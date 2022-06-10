@@ -21,3 +21,5 @@ export interface SetChosenAnswer {
   questionId: Question['_id']
   choice: Choice['choice']
 }
+
+export type Teststage = 'idle' | 'started' | 'finished'

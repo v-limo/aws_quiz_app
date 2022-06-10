@@ -1,4 +1,4 @@
-# AWS Q&A app
+# AWS QUIZ app
 AWS Certified Cloud Practitioner (CLF-C01) Extensive questions and answers collections
 
 

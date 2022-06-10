@@ -1,4 +1,5 @@
-import { Box, Typography, Divider } from '@mui/material'
+import { Box, Divider, Typography } from '@mui/material'
+
 import data from '../utils/instructions'
 
 export const Instructions = () => {
@@ -42,6 +43,7 @@ export const Instructions = () => {
               justifyContent: 'flex-start',
               color: '#525252',
             }}
+            key={instruction}
           >
             <Typography
               component='p'

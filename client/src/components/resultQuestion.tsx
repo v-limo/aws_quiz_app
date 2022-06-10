@@ -1,8 +1,9 @@
-import { Box, Typography } from '@mui/material'
 import { useDispatch } from 'react-redux'
-import { setChosenAnswer } from '../features.questions/questionsSlice'
 
-import { Question as QuestionType, Choice } from '../types/questions.type'
+import { Box, Typography } from '@mui/material'
+
+import { setChosenAnswer } from '../features.questions/questionsSlice'
+import { Choice, Question as QuestionType } from '../types/questions.type'
 
 type Props = {
   question: QuestionType

@@ -1,21 +1,20 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
+import { useNavigate, useParams } from 'react-router-dom'
 
-import { Box, Button, Typography, Container } from '@mui/material'
+import { Box, Button, Container, Typography } from '@mui/material'
 
+import { selectQuestions, setTestStage } from '../features.questions/questionsSlice'
+import { Question } from '../types/questions.type'
+import partition from '../utils/partition'
 import Loading from './loading'
 import TestQuestion from './testQuestion'
-import { selectQuestions } from '../features.questions/questionsSlice'
-import { Question } from '../types/questions.type'
-import { useNavigate, useParams } from 'react-router-dom'
 
 const Test = () => {
   let { isLoading, questions } = useSelector(selectQuestions)
-
   const dispatch = useDispatch()
   const navigate = useNavigate()
-  const { testId } = useParams()
-  const [slag, setSlag] = useState('')
+  const { slag } = useParams()
 
   const withAnswers = (question: Question) => {
     const { chosenAnswers } = question
@@ -23,8 +22,8 @@ const Test = () => {
       return false
     }
     if (
-      question.choices.filter((choices) => choices.correct).length ===
-      chosenAnswers.length
+      question.choices.filter((choices) => choices.correct)?.length ===
+      chosenAnswers?.length
     ) {
       return true
     } else {
@@ -32,31 +31,8 @@ const Test = () => {
     }
   }
 
-  const Instructions = [
-    'Select the correct answer or answers for each question.',
-    'Click the "Next" button to continue to the next question group.',
-    'Click the "Prev" button to go back to the previous question group.',
-    'There are a total of 30 randomly selected questions in this test.',
-    'You MUST asnwer all questions before you can submit your answers.',
-    "When you're done, click the 'Submit' button to see your results.",
-    "The results will be displayed in the results page after you click the 'Submit' button.",
-    'At the moment, the results are not saved, so make you screenshot, print or save your answers before you leave the page.',
-    "All questions are based AWS's Cloud Practitioner's Guide.",
-    "The Questions  MAY not be 100% accurate, does not align to certification  domain ratio  but it's a good start to get used to the AWS Cloud Practitioner's Exam.",
-    'If you have any questions, please contact us at vinceleemo@gmail.com or via the contact page',
-    'Thank you for taking this practice exam, we hope it was/is helpful to your exam preparations.',
-    "if you are ready to take the exam, please select the 'Practice question set' above and click 'Start Test'",
-  ]
-
   // partition questions
-  const partition = (arr: Question[], size: number) => {
-    const result = []
-    let i = 0
-    while (i < arr.length) {
-      result.push(arr.slice(i, (i += size)))
-    }
-    return result
-  }
+  questions = partition(questions, 30)[Number(slag) - 1]
 
   // divide questions into 5 questions per page
   const questionsPerPage = 5
@@ -68,19 +44,19 @@ const Test = () => {
 
   // navigate to results page
   const handleSubmit = () => {
-    if (currentQuestions.every(withAnswers)) {
-      navigate(`/test/${testId}/results`)
+    if (questions.every(withAnswers)) {
+      navigate(`/questions/test/results/${slag}`)
+      dispatch(setTestStage('finished'))
     } else {
-      // alert('Please answer all questions')
-      navigate(`/test/results/${slag}`)
+      alert('Please answer all questions')
     }
   }
 
   useEffect(() => {
-    if (questions.length === 0) {
-      navigate('/')
+    if (questions.length === 0 && !isLoading) {
+      navigate(`/questions/testi/${slag}`)
     }
-  }, [navigate, questions])
+  }, [isLoading, navigate, questions, slag])
 
   if (isLoading) {
     return <Loading />
@@ -98,104 +74,6 @@ const Test = () => {
         height: 'fit-content',
       }}
     >
-      {/* Practice test  */}
-      <Box
-        sx={{
-          display: 'flex',
-          flexDirection: 'row',
-          alignItems: 'center',
-          width: '100%',
-          maxWidth: '730px',
-          flexWrap: 'wrap',
-          mx: 'auto',
-          my: '1.3rem',
-          padding: '0.5rem',
-          height: 'fit-content',
-        }}
-      >
-        {partition(questions, 10).map((_, index) => (
-          <Typography
-            onClick={() => setSlag((index + 1).toString())}
-            key={index}
-            sx={{
-              fontSize: '1.1rem',
-              fontWeight: '700',
-              m: '0.5rem',
-              cursor: 'pointer',
-              backgroundColor:
-                slag === (index + 1).toString() ? '#ffa40b' : '#f0f0f0',
-              padding: '1rem',
-              borderRadius: '0.5rem',
-            }}
-          >
-            Practice Questions {index + 1}
-          </Typography>
-        ))}
-      </Box>
-
-      {/* Instractions */}
-
-      <Box sx={{ width: '100%', maxWidth: '730px', mx: 'auto' }}>
-        <Typography
-          sx={{
-            fontSize: '1.3rem',
-            fontWeight: '700',
-            textAlign: 'center',
-            my: '1rem',
-          }}
-        >
-          Questions Instructions, Please read carefully before taking the test.
-        </Typography>
-        {Instructions.map((instruction, index) => (
-          <Box
-            sx={{
-              display: 'flex',
-              justifyContent: 'flex-start',
-              color: '#525252',
-            }}
-          >
-            <Typography
-              component='p'
-              sx={{
-                fontSize: '1rem',
-                fontWeight: '700',
-                mx: '0.5rem',
-              }}
-            >{`${index + 1}.  `}</Typography>
-            <Typography
-              sx={{
-                fontSize: '1.2rem',
-                flexGrow: '1',
-                mx: '0.5rem',
-              }}
-            >
-              {instruction}
-            </Typography>
-          </Box>
-        ))}
-
-        {/* Start Test */}
-        <Button
-          variant='contained'
-          sx={{
-            mx: 'auto',
-            fontSize: '1.1rem',
-            fontWeight: '700',
-
-            my: '1rem',
-            width: '100%',
-            backgroundColor: '#ffa40b',
-            color: '#fff',
-            '&:hover': {
-              backgroundColor: '#ffa40b',
-              color: '#fff',
-            },
-          }}
-          onClick={() => handleSubmit()}
-        >
-          Start Test &rarr;
-        </Button>
-      </Box>
       <Box
         sx={{
           position: 'fixed',

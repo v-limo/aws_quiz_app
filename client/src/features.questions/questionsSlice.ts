@@ -1,7 +1,7 @@
 import { createSlice, isAnyOf } from '@reduxjs/toolkit'
 
 import { RootState } from '../app/store'
-import { Question, SetChosenAnswer } from '../types/questions.type'
+import { Question, SetChosenAnswer, Teststage } from '../types/questions.type'
 import { createQ, fetchQ, fetchQById, removeQ, updateQ } from './questions.sync'
 
 type questionsState = {
@@ -9,7 +9,7 @@ type questionsState = {
   isLoading: boolean
   error: boolean
   message: string
-  testStages: 'start' | 'test' | 'end' | 'idle'
+  testStage: Teststage
 }
 
 const initialState = {
@@ -17,7 +17,7 @@ const initialState = {
   isLoading: false,
   error: false,
   message: '',
-  testStages: 'idle',
+  testStage: 'idle',
 } as questionsState
 
 export const questionsSlice = createSlice({
@@ -26,9 +26,7 @@ export const questionsSlice = createSlice({
   reducers: {
     setChosenAnswer: (state, action: { payload: SetChosenAnswer }) => {
       const { questionId, choice } = action.payload
-
       const question = state.questions.find((q) => q._id === questionId)
-
       if (!question) {
         return
       }
@@ -69,6 +67,17 @@ export const questionsSlice = createSlice({
     },
 
     submitTest: (state) => {
+      state.questions = state.questions.map((question) => {
+        question.chosenAnswers = []
+        return question
+      })
+    },
+
+    setTestStage: (state, action: { payload: Teststage }) => {
+      state.testStage = action.payload
+    },
+
+    reSet: (state) => {
       state.questions = state.questions.map((question) => {
         question.chosenAnswers = []
         return question
@@ -155,7 +164,7 @@ export const questionsSlice = createSlice({
   },
 })
 
-export const { setChosenAnswer } = questionsSlice.actions
+export const { setChosenAnswer, setTestStage, reSet } = questionsSlice.actions
 export const selectQuestions = (state: RootState) => state.questions
 export default questionsSlice.reducer
 

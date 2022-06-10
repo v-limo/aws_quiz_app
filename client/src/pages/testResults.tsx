@@ -1,14 +1,20 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
+import { useParams } from 'react-router-dom'
 
-import { Box, Card, Typography, Container } from '@mui/material'
+import { Box, Card, Container, Typography } from '@mui/material'
 
 import Loading from '../components/loading'
 import ResultQuestion from '../components/resultQuestion'
 import { selectQuestions } from '../features.questions/questionsSlice'
+import partition from '../utils/partition'
 
 const TestResults = () => {
   let { isLoading, questions } = useSelector(selectQuestions)
+
+  const { slag } = useParams()
+
+  questions = partition(questions, 30)[Number(slag) - 1]
 
   const totalPossible = questions.reduce((acc, question) => {
     return acc + question.choices.filter((choice) => choice.correct).length
@@ -59,7 +65,7 @@ const TestResults = () => {
           maxWidth: '730px',
           my: '1.3rem',
           mx: 'auto',
-          padding: '0.5rem',
+          padding: '1.5rem',
           height: 'fit-content',
           backgroundColor: scoreColor === '#00ff00' ? '#8ec292' : '#bf8d8d',
         }}
@@ -75,6 +81,17 @@ const TestResults = () => {
           }}
         >
           Score Card
+        </Typography>
+        <Typography
+          sx={{
+            fontWeight: 'bold',
+            color: scoreColor,
+            textAlign: 'center',
+            m: '1rem',
+            fontSize: '1.2rem',
+          }}
+        >
+          Practice Questions {slag}
         </Typography>
         <Typography
           variant='h5'
@@ -125,11 +142,10 @@ const TestResults = () => {
           sx={{
             fontWeight: 'bold',
             textAlign: 'center',
-            my: '1.5rem',
             alignSelf: 'flex-start',
           }}
         >
-          3. Cloud Concepts : {score.toFixed(2)}%
+          4. Cloud Concepts : {score.toFixed(2)}%
         </Typography>
       </Card>
       <Box>
