@@ -63,7 +63,8 @@ const AddQuestion = () => {
     width: '10',
     fontSize: '1rem',
     fontWeight: 'bold',
-    // padding: '0.5rem',
+    padding: '0.5rem',
+    maxWidth: '100vw',
   }
 
   return (
@@ -214,7 +215,6 @@ const AddQuestion = () => {
 
       <Box
         sx={{
-          visibility: question.length > 5 ? 'visible' : 'hidden',
           display: 'flex',
           flexDirection: 'column',
           borderRadius: '0.5rem',
@@ -262,17 +262,11 @@ const AddQuestion = () => {
                 cursor: 'pointer',
                 padding: '1rem',
                 width: '100%',
-
                 mx: 'auto',
                 my: '0.3rem',
                 pl: '2rem',
                 borderRadius: '0.5rem',
-                transition: 'all 0.3s ease-in-out',
                 bgcolor: choice?.correct ? '#ffa40b' : '#f0f0f0',
-                '&:hover': {
-                  backgroundColor: '#a8a8a8',
-                  transition: 'all 0.3s ease-in-out',
-                },
               }}
             >
               {`${['A)', 'B)', 'C)', 'D)', 'E)', 'F)', 'G)', 'H)'][index]}.
@@ -280,34 +274,36 @@ const AddQuestion = () => {
             </Typography>
           ))}
 
-        {question &&
-          choices.length > 0 &&
-          choices?.filter((choice: Choice) => choice.choice !== '').length >
-            4 &&
-          choices?.filter((choice: Choice) => choice.correct).length > 0 && (
-            <Button
-              variant='contained'
-              color='primary'
-              sx={{
-                mt: '1rem',
-                mx: 'auto',
-                display: 'flex',
-                justifyContent: 'center',
-                alignItems: 'center',
-                padding: '0.5rem',
-                height: 'fit-content',
-                borderRadius: '0.5rem',
-                width: {
-                  sm: '100%',
-                  md: '50%',
-                  lg: '30%',
-                },
-              }}
-              onClick={handleAddQuestion}
-            >
-              Add Question
-            </Button>
-          )}
+        <Button
+          variant='contained'
+          color='primary'
+          disabled={
+            !question ||
+            !choice1.choice ||
+            !choice2.choice ||
+            !choice3.choice ||
+            !choice4.choice ||
+            choices?.filter((choice: Choice) => choice?.correct).length < 1
+          }
+          sx={{
+            mt: '1rem',
+            mx: 'auto',
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            padding: '0.5rem',
+            height: 'fit-content',
+            borderRadius: '0.5rem',
+            width: {
+              sm: '100%',
+              md: '50%',
+              lg: '30%',
+            },
+          }}
+          onClick={handleAddQuestion}
+        >
+          Add Question
+        </Button>
       </Box>
     </Box>
   )

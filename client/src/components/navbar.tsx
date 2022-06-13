@@ -9,12 +9,7 @@ const NavBar = () => {
   const navigate = useNavigate()
 
   const navItem = {
-    mx: {
-      sm: 'auto',
-      md: 3,
-      lg: 3,
-    },
-    px: 1,
+    mx: '10px',
     cursor: 'pointer',
     fontSize: '1rem',
     borderBottom: '1px  solid transparent',
@@ -37,7 +32,6 @@ const NavBar = () => {
           justifyContent: 'center',
           flexWrap: 'nowrap',
           alignItems: 'center',
-          p: 2,
           mx: 'auto',
           width: '100%',
         }}

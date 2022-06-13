@@ -4,7 +4,10 @@ import { useNavigate, useParams } from 'react-router-dom'
 
 import { Box, Button, Container, Typography } from '@mui/material'
 
-import { selectQuestions, setTestStage } from '../features.questions/questionsSlice'
+import {
+  selectQuestions,
+  setTestStage,
+} from '../features.questions/questionsSlice'
 import { Question } from '../types/questions.type'
 import partition from '../utils/partition'
 import Loading from './loading'
@@ -79,16 +82,11 @@ const Test = () => {
           position: 'fixed',
           top: '70px',
           width: 'fit-content',
+          maxWidth: '100vw',
           mx: 'auto',
-          display: {
-            sm: 'none',
-            md: 'none',
-            xl: 'flex',
-            lg: 'flex',
-          },
+          display: 'flex',
           alignItems: 'center',
           justifyContent: 'space-evenly',
-          overflow: 'ellipsis',
           borderBottom: '1px solid #e0e0e0',
           transition: 'all 0.3s ease-in-out',
           backgroundColor: '#fff',
@@ -100,18 +98,25 @@ const Test = () => {
         {questions.map((question, index) => (
           <Typography
             sx={{
-              fontSize: '1rem',
+              fontSize: {
+                xs: '0.725rem',
+                sm: '0.8rem',
+                md: '0.9rem',
+                lg: '1rem',
+              },
               fontWeight: 'bold',
               backgroundColor: withAnswers(question) ? '#ffa40b' : '#fff',
               cursor: 'pointer',
-              flexWrap: 'wrap',
               height: '30px',
               width: '30px',
-              display: 'flex',
+              display: {
+                xs: 'none',
+                sm: 'flex',
+                md: 'flex',
+              },
               alignItems: 'center',
               justifyContent: 'center',
-              textAlign: 'center',
-              m: '1px',
+              mX: '1px',
             }}
             onClick={() => {
               // change page to question index
