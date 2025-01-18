@@ -29,7 +29,7 @@
     "lodash": "^4.17.15",
     "lusca": "^1.7.0",
     "mongodb-memory-server": "^6.3.1",
-    "mongoose": "^5.11.15",
+    "mongoose": "^6.13.6",
     "winston": "^3.7.2"
   },
   "devDependencies": {
