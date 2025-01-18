@@ -23,7 +23,7 @@
     "cors": "^2.8.5",
     "dotenv": "^8.2.0",
     "errorhandler": "^1.5.1",
-    "express": "^4.17.1",
+    "express": "^4.21.2",
     "husky": "^4.2.3",
     "lint-staged": "^10.0.8",
     "lodash": "^4.17.15",
